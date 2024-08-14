@@ -1,0 +1,83 @@
+grammar LsysParser
+
+  root lsys_rule
+
+  rule lsys_rule
+    terms
+  end
+
+  rule terms
+    (term*) {
+      to_a[1..].collect {|t| t.value }
+    }
+  end
+
+  rule term
+    identifier | integer | bracketed | plus | minus | reverse | increment_width | decrement_width | increment_angle | decrement_angle
+  end
+
+  rule bracketed
+    ('[' space terms:terms space ']') {
+      [capture(:terms).value].flatten(1)
+    }
+  end
+
+  rule identifier
+    ([a-zA-Z] space) {
+      to_s[0].to_sym
+    }
+  end
+
+  rule integer
+    ([0-9]+ space) {
+      to_s.to_i
+    }
+  end
+
+  rule plus
+    ('+' space) {
+      '+'.to_sym
+    }
+  end
+
+  rule minus
+    ('-' space) {
+      '-'.to_sym
+    }
+  end
+
+  rule reverse
+    ('|' space) {
+      '|'.to_sym
+    }
+  end
+
+  rule increment_width
+    ('#' space) {
+      '#'.to_sym
+    }
+  end
+
+  rule decrement_width
+    ('!' space) {
+      '!'.to_sym
+    }
+  end
+
+  rule decrement_angle
+    ('(' space) {
+      '('.to_sym
+    }
+  end
+
+  rule increment_angle
+    (')' space) {
+      ')'.to_sym
+    }
+  end
+
+  rule space
+    [ \t]*
+  end
+
+end

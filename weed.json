@@ -1,0 +1,10 @@
+{
+    "name": "Weed",
+    "axiom": "F",
+    "rules": {
+        "F": "FF-[XY]+[XY]",
+        "X": "+FY",
+        "Y": "-FX"
+    },
+    "angle": 22.5
+}

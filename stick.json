@@ -1,0 +1,9 @@
+{
+    "name": "Stick",
+    "axiom": "X",
+    "rules": {
+        "F": "FF",
+        "X": "F[+X]F[-X]+X"
+    },
+    "angle": 20
+}
