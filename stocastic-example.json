@@ -1,5 +1,6 @@
 {
-    "name": "Stocastic Example",
+    "name": "Stochastic Example",
+    "type": "stochastic",
     "axiom": "F",
     "rules": {
         "F": [

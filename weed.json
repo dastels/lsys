@@ -1,5 +1,6 @@
 {
     "name": "Weed",
+    "type": "regular",
     "axiom": "F",
     "rules": {
         "F": "FF-[XY]+[XY]",

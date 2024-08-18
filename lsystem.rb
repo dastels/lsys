@@ -9,6 +9,7 @@ class LSystem
     data = fname_or_data.end_with?('.json') ? File.read(fname_or_data) : fname_or_data
     system = JSON.parse(data)
     @name = system['name']
+    @type = system['type']
     @axiom = system['axiom'].split('').collect {|a| a.to_sym}
     @rules = {}
     system['rules'].each do |k, v|

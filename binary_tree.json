@@ -1,5 +1,6 @@
 {
     "name": "Binary Tree",
+    "type": "regular",
     "axiom": "A",
     "rules": {
         "F": "FF",

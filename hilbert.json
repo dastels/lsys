@@ -1,5 +1,6 @@
 {
     "name": "Hilbert",
+    "type": "regular",
     "axiom": "X",
     "rules": {
         "X": "-YF+XFX+FY-",
