@@ -11,7 +11,19 @@ class LSystem
     @name = system['name']
     @axiom = system['axiom'].split('').collect {|a| a.to_sym}
     @rules = {}
-    system['rules'].each {|k, v| @rules[k.to_sym] = LsysParser.parse(v).value}
+    system['rules'].each do |k, v|
+      @rules[k.to_sym] = case v
+                         when String           # simple rule
+                           LsysParser.parse(v).value
+                         when Array            # stocastic rule
+                           if v.inject(0) {|sum, n| sum + n[0]} != 100
+                             puts "Clause % for #{k} don't add up to 100"
+                             nil
+                           else
+                             v.collect {|clause| [clause[0], LsysParser.parse(clause[1]).value]}
+                           end
+                         end
+    end
     @angle = system['angle']
   end
 
@@ -45,12 +57,32 @@ class LSystem
 
   private
 
+  def apply_rule(symbol)
+    rule = @rules[symbol]
+    return symbol unless rule     # take care of syntactic tokens. E.g. +, -
+    case rule
+    when String                 # simple replacement rule
+      return rule
+    when Array                  # stocastic rule set
+      percentage = rand(100)
+      rule.each do |clause|
+        if percentage < clause[0]
+          return clause[1]
+        else
+          percentage -= clause[0]
+        end
+      end
+    end
+    nil
+  end
+
   def next_generation(state)
       new_state = []
       state.each do |expr|
         if expr.is_a? Symbol
-          new_state << (@rules[expr] || expr)
-        else
+          replacement = apply_rule(expr)
+          new_state << replacement if replacement
+        else                    # it's a bracketed expression (i.e. an Array)
           new_state << [next_generation(expr)]
         end
       end
