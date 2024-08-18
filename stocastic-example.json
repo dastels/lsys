@@ -1,0 +1,12 @@
+{
+    "name": "Stocastic Example",
+    "axiom": "F",
+    "rules": {
+        "F": [
+            [33, "F[+F]F[-F]"],
+            [34, "F[+F]F"],
+            [33, "F[-F]F"]
+            ]
+    },
+    "angle": 45
+}

@@ -1,0 +1,9 @@
+{
+    "name": "Binary Tree",
+    "axiom": "A",
+    "rules": {
+        "F": "FF",
+        "A": "F[-A]A[+A]"
+    },
+    "angle": 45
+}
